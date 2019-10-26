@@ -18,6 +18,6 @@ export class Endereco{
     @Column()
     bairro: string
 
-    @ManyToOne(type => Aluno, aluno => aluno.endereco)
+    @ManyToOne(type => Aluno, aluno => aluno.enderecos)
     aluno: Aluno
 }

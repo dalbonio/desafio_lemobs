@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
-import { Ticket } from './ticket.entity';
+import { Endereco } from './endereco.entity';
 
 @Entity()
 export class Aluno{

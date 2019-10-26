@@ -8,7 +8,7 @@ export class EnderecoService {
   constructor( @Inject('ENDERECO_REPOSITORY') private readonly enderecoRepository: Repository<Endereco>,
                @Inject('ALUNO_REPOSITORY') private readonly alunoRepository: Repository<Aluno> ) {}
 
-  insertTurma(valor: number, id_aluno: number ): Endereco {
+  insertEndereco(): Endereco {
     const endereco = new Endereco()
     endereco.bairro = "b"
     endereco.complemento = "c"

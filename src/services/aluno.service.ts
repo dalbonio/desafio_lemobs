@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { Aluno } from '../entities/aluno.entity';
-import { Endereco } from 'src/entities/endereco.entity';
+import { Endereco } from '../entities/endereco.entity';
 
 @Injectable()
 export class AlunoService {

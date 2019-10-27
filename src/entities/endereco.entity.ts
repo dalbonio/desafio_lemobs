@@ -9,10 +9,10 @@ export class Endereco{
     @Column()
     rua: string
 
-    @Column()
+    @Column({nullable: true})
     numero: string
 
-    @Column()
+    @Column({nullable: true})
     complemento: string
 
     @Column()

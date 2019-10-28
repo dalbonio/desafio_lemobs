@@ -17,7 +17,7 @@ export class EnderecoController {
             @Body("numero") numero: string, 
             @Body("complemento") complemento: string, 
             @Body("bairro") bairro: string, 
-            @Body("cpf_aluno") cpf_aluno: string): Promise<{}> {
-    return Promise.resolve(this.enderecoService.insertEndereco(rua, numero, complemento, bairro, cpf_aluno));
+            @Body("id_aluno") id_aluno: number): Promise<{}> {
+    return Promise.resolve(this.enderecoService.insertEndereco(rua, numero, complemento, bairro, id_aluno));
   }
 }

@@ -6,7 +6,8 @@ import { arrayExpression } from '@babel/types';
 
 @Injectable()
 export class AlunoService {
-  constructor( @Inject('ALUNO_REPOSITORY') private readonly alunoRepository: Repository<Aluno> ) {}
+  constructor( @Inject('ALUNO_REPOSITORY') private readonly alunoRepository: Repository<Aluno>,
+               @Inject('ENDERECO_REPOSITORY') private readonly enderecoRepository: Repository<Endereco> ) {}
 
   async insertAluno(nome: string, data_nasc: Date, cpf: string, nota: number): Promise<Aluno> {
     const aluno = new Aluno()
@@ -15,6 +16,14 @@ export class AlunoService {
     aluno.data_nascimento = data_nasc
     aluno.nota = nota
     return await this.alunoRepository.save(aluno);
+  }
+
+  async getEnderecosOfAluno(id: number): Promise<Endereco[]>{
+    const enderecos = await this.enderecoRepository
+                                  .createQueryBuilder("endereco")
+                                  .where("endereco.aluno_id = :id", {id: id})
+                                  .getMany()
+    return enderecos
   }
 
   // async updateAluno(nome: string, data_nasc: Date, cpf: string, nota: number, aluno_id: number): Promise<Aluno> {

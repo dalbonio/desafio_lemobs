@@ -8,22 +8,20 @@ export class AlunoController {
 
   //retornar dados de todos os alunos
   @Get()
-  getAlunos(): {} {
-    return this.alunoService.insertAluno();
+  async getAlunos(): Promise<{}> {
+    return await this.alunoService.getAllAlunos();
   }
 
   //retornar dados de um único aluno
   @Get(":id")
-  getOneAluno(@Param('id') id):{} {
-    //call service
-    return {}
+  async getOneAluno(@Param('id') id): Promise<{}> {
+    return await this.alunoService.getAlunoById(id)
   }
 
   //retornar todos os endereços de um aluno e sua quantidade;
   @Get(":id/endereco")
-  getAlunoAndEndereco(@Param('id') id):{} {
-    //call service
-    return {}
+  async getAlunoAndEndereco(@Param('id') id): Promise<{}> {
+    return this.alunoService.getAlunoById(id)
   }
 
   //retornar os dados de todos os alunos que possuem nota maior que a nota dada como parâmetro se o
@@ -38,17 +36,22 @@ export class AlunoController {
 
   //retornar os dados de todos os alunos que possuem nota maior que a média de todos os alunos;
   @Get("media")
-  getAlunosBetterThanAvarage(): {} {
-    return this.alunoService.insertAluno();
+  async getAlunosBetterThanAvarage(): Promise<{}> {
+    return await this.alunoService.getAllAlunosBetterThanAverage();
   }
 
   //cadastrar um aluno
   @Post()
   addAluno( @Body("nome") nome: string, 
-            @Body("data_nascimento") data_nascimento: Date, 
+            @Body("ano") ano_nasc: number, 
+            @Body("mes") mes_nasc: number, 
+            @Body("dia") dia_nasc: number, 
             @Body("cpf") cpf: string, 
-            @Body("nota") nota: number, ):{} {
-    //call service
+            @Body("nota") nota: number,
+            @Body("aluno_enderecos") endereco: {total: number, enderecos: {nome: string, numero: string, complemento: string, bairro: string} }  ):{} {
+    const date = new Date(ano_nasc, mes_nasc, dia_nasc)
+    
+    //this.alunoService.updateAluno(nome, date, cpf, nota)
     return {}
   }
 

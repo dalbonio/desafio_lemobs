@@ -7,17 +7,17 @@ export class EnderecoController {
 
   //retornar dados de todos os endereços;
   @Get()
-  getTickets(): {} {
-    return this.enderecoService.insertEndereco();
+  getEnderecos(): Promise<{}> {
+    return this.enderecoService.getAllEnderecos();
   }
 
   //cadastrar um endereco
   @Post()
-  addAluno( @Body("rua") rua: string, 
+  addEndereco( @Body("rua") rua: string, 
             @Body("numero") numero: string, 
             @Body("complemento") complemento: string, 
-            @Body("bairro") bairro: string, ):{} {
-    //call service
-    return {}
+            @Body("bairro") bairro: string, 
+            @Body("cpf_aluno") cpf_aluno: string): Promise<{}> {
+    return Promise.resolve(this.enderecoService.insertEndereco(rua, numero, complemento, bairro, cpf_aluno));
   }
 }

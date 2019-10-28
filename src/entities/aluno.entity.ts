@@ -15,6 +15,9 @@ export class Aluno{
     @Column()
     cpf: string
 
+    @Column()
+    nota: number
+
     @OneToMany(type => Endereco, endereco => endereco.aluno)
     enderecos: Endereco[];
 }

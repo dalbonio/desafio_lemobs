@@ -1,0 +1,3 @@
+CREATE DATABASE desafio;
+CREATE USER username WITH PASSWORD 'password';
+GRANT ALL PRIVILEGES ON DATABASE desafio TO username;

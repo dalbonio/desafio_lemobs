@@ -1,21 +1,21 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from "typeorm";
 import { Aluno } from './aluno.entity'
 
-@Entity()
+@Entity("endereco")
 export class Endereco{
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column()
+    @Column({name: "rua"})
     rua: string
 
-    @Column({nullable: true})
+    @Column({nullable: true, name: "numero"})
     numero: string
 
-    @Column({nullable: true})
+    @Column({nullable: true, name: "complemento"})
     complemento: string
 
-    @Column()
+    @Column({name: "bairro"})
     bairro: string
 
     @ManyToOne(type => Aluno, aluno => aluno.enderecos)

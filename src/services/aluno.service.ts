@@ -70,7 +70,15 @@ export class AlunoService {
   // }
 
   async getAllAlunos(): Promise<Aluno[]> {
-    return await this.alunoRepository.find();
+    const alunos = await this.alunoRepository.find();
+    //map all alunos.cpf to replaced regex
+    const alunosFormattedCPF = alunos.map( (aluno) => ({id: aluno.id,
+                                                        nome: aluno.nome,
+                                                        cpf: aluno.cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2}).*/,"$1.$2.$3-$4"),
+                                                        data_nascimento: aluno.data_nascimento,
+                                                        nota: aluno.nota,
+                                                        enderecos: undefined}) )
+    return alunosFormattedCPF
   }
 
   async getAlunoById(id: number): Promise<Aluno> {

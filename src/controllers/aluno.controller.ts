@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Put, Param } from '@nestjs/common';
 import { AlunoService } from '../services/aluno.service';
 import { EnderecoService } from '../services/endereco.service';
 import { tsBooleanKeyword, numberLiteralTypeAnnotation } from '@babel/types';
+import { Utils, testaCPF } from '../utils/utils';
 
 @Controller('aluno')
 export class AlunoController {
@@ -52,6 +53,10 @@ export class AlunoController {
             @Body("cpf") cpf: string, 
             @Body("nota") nota: number, ): Promise<{}> {
     const data_nasc = new Date(data)
+    if(testaCPF(cpf) == false){
+      console.log("cpf invalido")
+      return {}
+    }
     return await this.alunoService.insertAluno(nome, data_nasc, cpf, nota)
   }
 
@@ -62,6 +67,12 @@ export class AlunoController {
              @Body("cpf") cpf: string, 
              @Body("nota") nota: number, 
              @Body("id") id: number, ): Promise<{}> {
+     if(cpf != undefined){
+        if(testaCPF(cpf) == false){
+          console.log("cpf invalido")
+          return {}
+        }
+     }
      return await this.alunoService.updateAluno(nome, data, cpf, nota, id)
    }
 

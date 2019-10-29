@@ -14,7 +14,6 @@ export class EnderecoService {
     endereco.complemento = complemento
     endereco.numero = numero
     endereco.rua = rua
-    console.log(id_aluno)
 
     const aluno = await this.alunoRepository.findOne(id_aluno)
     endereco.aluno = aluno
@@ -22,8 +21,12 @@ export class EnderecoService {
     return await this.enderecoRepository.save(endereco);
   }
 
-  async getAllEnderecos(): Promise<Endereco[]> {
-    return await this.enderecoRepository.find();
+  async getAllEnderecos(bairro: string): Promise<Endereco[]> {
+    if(bairro == undefined)
+      return await this.enderecoRepository.find();
+    else{
+      return await this.enderecoRepository.find({where: {bairro: bairro}})
+    }
   }
 
   formatEnderecos(enderecos: Endereco[]){

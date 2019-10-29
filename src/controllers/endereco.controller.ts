@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Put, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Put, Param, Query } from '@nestjs/common';
 import { EnderecoService } from '../services/endereco.service';
 
 @Controller('endereco')
@@ -7,8 +7,8 @@ export class EnderecoController {
 
   //retornar dados de todos os endereços;
   @Get()
-  getEnderecos(): Promise<{}> {
-    return this.enderecoService.getAllEnderecos();
+  getEnderecos(@Query("bairro") bairro: string): Promise<{}> {
+    return this.enderecoService.getAllEnderecos(bairro);
   }
 
   //cadastrar um endereco

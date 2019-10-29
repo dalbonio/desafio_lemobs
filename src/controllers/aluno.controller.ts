@@ -19,6 +19,16 @@ export class AlunoController {
      return await this.alunoService.getAllAlunosBetterThanAverage();
    }
 
+  //retornar os dados de todos os alunos que possuem nota maior que a nota dada como parâmetro se o
+  //criterio for igual a “>” e os que possuem nota menor se o criterio for igual a “<”;
+  @Get(":nota/criterio/:criterio")
+  async getAlunoByCriterio(@Param() params): Promise<{}> {
+    const nota = params.nota
+    let criterio = params.criterio
+    console.log(criterio)
+      return await this.alunoService.getAlunosByCriterio(nota, criterio)
+  }
+
   //retornar dados de um único aluno
   @Get(":id")
   async getOneAluno(@Param('id') id): Promise<{}> {
@@ -35,16 +45,6 @@ export class AlunoController {
     return formattedJson
   }
 
-  //retornar os dados de todos os alunos que possuem nota maior que a nota dada como parâmetro se o
-  //criterio for igual a “>” e os que possuem nota menor se o criterio for igual a “<”;
-  @Get("/aluno/:nota/criterio/:criterio")
-  getAlunoByCriterio(@Param() params):{} {
-    const nota = params.nota
-    const criterio = params.criterio
-    //call service
-    return {}
-  }
-
   //cadastrar um aluno
   @Post()
   async addAluno( @Body("nome") nome: string, 
@@ -55,16 +55,15 @@ export class AlunoController {
     return await this.alunoService.insertAluno(nome, data_nasc, cpf, nota)
   }
 
-  //editar um aluno
-  @Put(":id")
-  editAluno(  @Param('id') id,
-              @Body("nome") nome: string, 
-              @Body("data_nascimento") data_nascimento: Date, 
-              @Body("cpf") cpf: string, 
-              @Body("nota") nota: number, ):{} {
-    //call service
-    return {}
-  }
+   //editar um aluno
+   @Put()
+   async editAluno( @Body("nome") nome: string, 
+             @Body("data") data: string,
+             @Body("cpf") cpf: string, 
+             @Body("nota") nota: number, 
+             @Body("id") id: number, ): Promise<{}> {
+     return await this.alunoService.updateAluno(nome, data, cpf, nota, id)
+   }
 
 
 }

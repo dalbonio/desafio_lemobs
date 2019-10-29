@@ -18,12 +18,46 @@ export class AlunoService {
     return await this.alunoRepository.save(aluno);
   }
 
+  async updateAluno(nome: string, data: string, cpf: string, nota: number, id: number): Promise<{}> {
+    const data_nasc = new Date(data)
+    const updatedAluno = {id: id}
+    if(nome != undefined){
+      updatedAluno["nome"] = nome
+    }
+    if(cpf != undefined){
+      updatedAluno["cpf"] = cpf
+    }
+    if(data != undefined){
+      updatedAluno["data"] = data_nasc
+    }
+    if(nota != undefined){
+      updatedAluno["nota"] = nota
+    }
+
+    return await this.alunoRepository.update(id, updatedAluno);
+  }
+
   async getEnderecosOfAluno(id: number): Promise<Endereco[]>{
     const enderecos = await this.enderecoRepository
                                   .createQueryBuilder("endereco")
                                   .where("endereco.aluno_id = :id", {id: id})
                                   .getMany()
     return enderecos
+  }
+
+  async getAlunosByCriterio(nota: number, criterio: string): Promise<Aluno[]>{
+    if(criterio == ">"){
+      return await this.alunoRepository
+                                  .createQueryBuilder("aluno")
+                                  .where("aluno.nota >= :nota", {nota: nota})
+                                  .getMany()
+    }
+    else if(criterio == "<"){
+      return await this.alunoRepository
+                                  .createQueryBuilder("aluno")
+                                  .where("aluno.nota <= :nota", {nota: nota})
+                                  .getMany()
+    }
   }
 
   // async updateAluno(nome: string, data_nasc: Date, cpf: string, nota: number, aluno_id: number): Promise<Aluno> {

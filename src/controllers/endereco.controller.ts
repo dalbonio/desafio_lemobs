@@ -1,5 +1,6 @@
 import { Controller, Get, Post, Body, Put, Param, Query } from '@nestjs/common';
 import { EnderecoService } from '../services/endereco.service';
+import { ApiImplicitQuery } from '@nestjs/swagger';
 
 @Controller('endereco')
 export class EnderecoController {
@@ -7,8 +8,13 @@ export class EnderecoController {
 
   //retornar dados de todos os endereços;
   @Get()
+  @ApiImplicitQuery({
+    name: 'bairro',
+    required: false,
+    type: String
+  })
   getEnderecos(@Query("bairro") bairro: string): Promise<{}> {
-    return this.enderecoService.getAllEnderecos(bairro);
+    return this.enderecoService.getAllEnderecos(bairro); 
   }
 
   //cadastrar um endereco
